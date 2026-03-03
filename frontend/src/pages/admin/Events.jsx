@@ -33,7 +33,12 @@ export default function AdminEvents() {
             setEditingEvent(null);
             setForm({ title: '', description: '', venue: '', date: '', capacity: '', price: '0', tags: '' });
             loadEvents();
-        } catch (err) { const msg = err.response?.data?.detail; alert(typeof msg === 'string' ? msg : Array.isArray(msg) ? JSON.stringify(msg) : 'Error'); }
+                } catch (err) { 
+            const status = err.response?.status;
+            const msg = err.response?.data?.detail;
+            const error_text = typeof msg === 'string' ? msg : JSON.stringify(msg || 'Unknown Error');
+            alert(`Error ${status || 'Network'}: ${error_text}`); 
+        }
     };
 
     const handleEdit = (event) => {
