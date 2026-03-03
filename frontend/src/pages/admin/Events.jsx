@@ -33,7 +33,7 @@ export default function AdminEvents() {
             setEditingEvent(null);
             setForm({ title: '', description: '', venue: '', date: '', capacity: '', price: '0', tags: '' });
             loadEvents();
-        } catch (err) { alert(err.response?.data?.detail || 'Error'); }
+        } catch (err) { const msg = err.response?.data?.detail; alert(typeof msg === 'string' ? msg : Array.isArray(msg) ? JSON.stringify(msg) : 'Error'); }
     };
 
     const handleEdit = (event) => {
