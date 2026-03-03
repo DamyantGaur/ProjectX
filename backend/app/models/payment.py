@@ -38,6 +38,7 @@ class PaymentResponse(BaseModel):
     status: PaymentStatus
     provider: str = "mock"
     provider_transaction_id: Optional[str] = None
+    checkout_url: Optional[str] = None
     event_title: Optional[str] = None
     created_at: datetime
     updated_at: datetime

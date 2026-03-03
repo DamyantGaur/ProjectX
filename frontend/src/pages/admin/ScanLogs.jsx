@@ -40,19 +40,19 @@ export default function AdminScanLogs() {
     };
 
     const resultIcon = {
-        approved: <CheckCircle size={14} color="#22C55E" />,
-        denied_used: <XCircle size={14} color="#EF4444" />,
-        denied_expired: <Clock size={14} color="#F59E0B" />,
-        denied_payment: <XCircle size={14} color="#EF4444" />,
-        invalid: <XCircle size={14} color="#EF4444" />,
+        approved: <CheckCircle size={14} color="#5B9A6F" />,
+        denied_used: <XCircle size={14} color="#C06070" />,
+        denied_expired: <Clock size={14} color="#D4A054" />,
+        denied_payment: <XCircle size={14} color="#C06070" />,
+        invalid: <XCircle size={14} color="#C06070" />,
     };
 
     const resultColors = {
-        approved: { bg: 'rgba(34,197,94,0.1)', text: '#22C55E', border: 'rgba(34,197,94,0.2)' },
-        denied_used: { bg: 'rgba(239,68,68,0.1)', text: '#EF4444', border: 'rgba(239,68,68,0.2)' },
-        denied_expired: { bg: 'rgba(245,158,11,0.1)', text: '#F59E0B', border: 'rgba(245,158,11,0.2)' },
-        denied_payment: { bg: 'rgba(239,68,68,0.1)', text: '#EF4444', border: 'rgba(239,68,68,0.2)' },
-        invalid: { bg: 'rgba(239,68,68,0.1)', text: '#EF4444', border: 'rgba(239,68,68,0.2)' },
+        approved: { bg: 'rgba(91,154,111,0.1)', text: '#5B9A6F', border: 'rgba(91,154,111,0.2)' },
+        denied_used: { bg: 'rgba(192,96,112,0.1)', text: '#C06070', border: 'rgba(192,96,112,0.2)' },
+        denied_expired: { bg: 'rgba(212,160,84,0.1)', text: '#D4A054', border: 'rgba(212,160,84,0.2)' },
+        denied_payment: { bg: 'rgba(192,96,112,0.1)', text: '#C06070', border: 'rgba(192,96,112,0.2)' },
+        invalid: { bg: 'rgba(192,96,112,0.1)', text: '#C06070', border: 'rgba(192,96,112,0.2)' },
     };
 
     const totalPages = Math.ceil(total / limit);
@@ -61,8 +61,8 @@ export default function AdminScanLogs() {
         <div>
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
                 <div>
-                    <h1 className="text-2xl font-bold" style={{ color: '#F8FAFC' }}>Scan Logs</h1>
-                    <p className="text-sm mt-1" style={{ color: '#94A3B8' }}>{total} total scan records</p>
+                    <h1 className="text-2xl font-bold" style={{ color: '#EAEAF0' }}>Scan Logs</h1>
+                    <p className="text-sm mt-1" style={{ color: '#9A9AB0' }}>{total} total scan records</p>
                 </div>
                 <button onClick={handleExport} className="btn-secondary flex items-center gap-2 text-sm">
                     <Download size={16} /> Export CSV
@@ -72,19 +72,19 @@ export default function AdminScanLogs() {
             {/* Filters */}
             <div className="glass-card mb-6">
                 <div className="flex items-center gap-2 mb-3">
-                    <Filter size={16} color="#D946EF" />
-                    <span className="text-sm font-medium" style={{ color: '#F8FAFC' }}>Filters</span>
+                    <Filter size={16} color="#C9A96E" />
+                    <span className="text-sm font-medium" style={{ color: '#EAEAF0' }}>Filters</span>
                 </div>
                 <div className="grid sm:grid-cols-2 gap-4">
                     <div>
-                        <label className="block text-xs mb-1" style={{ color: '#94A3B8' }}>Event</label>
+                        <label className="block text-xs mb-1" style={{ color: '#9A9AB0' }}>Event</label>
                         <select value={filters.event_id} onChange={e => { setFilters({ ...filters, event_id: e.target.value }); setPage(0); }} className="glass-input text-sm">
                             <option value="">All Events</option>
                             {events.map(ev => <option key={ev.id} value={ev.id}>{ev.title}</option>)}
                         </select>
                     </div>
                     <div>
-                        <label className="block text-xs mb-1" style={{ color: '#94A3B8' }}>Result</label>
+                        <label className="block text-xs mb-1" style={{ color: '#9A9AB0' }}>Result</label>
                         <select value={filters.result} onChange={e => { setFilters({ ...filters, result: e.target.value }); setPage(0); }} className="glass-input text-sm">
                             <option value="">All Results</option>
                             <option value="approved">Approved</option>
@@ -99,33 +99,33 @@ export default function AdminScanLogs() {
 
             {/* Logs — Desktop table, Mobile cards */}
             {loading ? (
-                <div className="flex justify-center py-12"><motion.div animate={{ rotate: 360 }} transition={{ duration: 1, repeat: Infinity }} className="w-8 h-8 rounded-full border-2 border-transparent" style={{ borderTopColor: '#D946EF' }} /></div>
+                <div className="flex justify-center py-12"><motion.div className="spinner" /></div>
             ) : (
                 <>
                     {/* Desktop Table */}
                     <div className="hidden md:block glass-card overflow-x-auto mb-6">
                         <table className="w-full text-sm">
                             <thead>
-                                <tr style={{ borderBottom: '1px solid rgba(139,92,246,0.15)' }}>
-                                    <th className="text-left py-3 px-4 font-medium text-xs" style={{ color: '#94A3B8' }}>Time</th>
-                                    <th className="text-left py-3 px-4 font-medium text-xs" style={{ color: '#94A3B8' }}>Result</th>
-                                    <th className="text-left py-3 px-4 font-medium text-xs" style={{ color: '#94A3B8' }}>Event</th>
-                                    <th className="text-left py-3 px-4 font-medium text-xs" style={{ color: '#94A3B8' }}>Token</th>
-                                    <th className="text-left py-3 px-4 font-medium text-xs" style={{ color: '#94A3B8' }}>Scanned By</th>
+                                <tr style={{ borderBottom: '1px solid rgba(167,139,250,0.15)' }}>
+                                    <th className="text-left py-3 px-4 font-medium text-xs" style={{ color: '#9A9AB0' }}>Time</th>
+                                    <th className="text-left py-3 px-4 font-medium text-xs" style={{ color: '#9A9AB0' }}>Result</th>
+                                    <th className="text-left py-3 px-4 font-medium text-xs" style={{ color: '#9A9AB0' }}>Event</th>
+                                    <th className="text-left py-3 px-4 font-medium text-xs" style={{ color: '#9A9AB0' }}>Token</th>
+                                    <th className="text-left py-3 px-4 font-medium text-xs" style={{ color: '#9A9AB0' }}>Scanned By</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {logs.map((log, i) => (
-                                    <motion.tr key={log.id || i} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: i * 0.02 }} style={{ borderBottom: '1px solid rgba(139,92,246,0.05)' }}>
-                                        <td className="py-3 px-4 text-xs" style={{ color: '#94A3B8' }}>{new Date(log.scanned_at).toLocaleString()}</td>
+                                    <motion.tr key={log.id || i} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: i * 0.02 }} style={{ borderBottom: '1px solid rgba(167,139,250,0.05)' }}>
+                                        <td className="py-3 px-4 text-xs" style={{ color: '#9A9AB0' }}>{new Date(log.scanned_at).toLocaleString()}</td>
                                         <td className="py-3 px-4">
                                             <span className="inline-flex items-center gap-1 px-2 py-1 rounded-lg text-xs font-medium" style={{ background: resultColors[log.result]?.bg, color: resultColors[log.result]?.text, border: `1px solid ${resultColors[log.result]?.border}` }}>
                                                 {resultIcon[log.result]} {log.result?.replace('_', ' ')}
                                             </span>
                                         </td>
-                                        <td className="py-3 px-4 text-xs" style={{ color: '#94A3B8' }}>{log.event_id?.slice(0, 8)}...</td>
-                                        <td className="py-3 px-4 text-xs font-mono" style={{ color: '#64748B' }}>{log.qr_token?.slice(0, 16)}...</td>
-                                        <td className="py-3 px-4 text-xs" style={{ color: '#94A3B8' }}>{log.scanned_by?.slice(0, 8)}...</td>
+                                        <td className="py-3 px-4 text-xs" style={{ color: '#9A9AB0' }}>{log.event_id?.slice(0, 8)}...</td>
+                                        <td className="py-3 px-4 text-xs font-mono" style={{ color: '#5E5E74' }}>{log.qr_token?.slice(0, 16)}...</td>
+                                        <td className="py-3 px-4 text-xs" style={{ color: '#9A9AB0' }}>{log.scanned_by?.slice(0, 8)}...</td>
                                     </motion.tr>
                                 ))}
                             </tbody>
@@ -137,12 +137,12 @@ export default function AdminScanLogs() {
                         {logs.map((log, i) => (
                             <motion.div key={log.id || i} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.03 }} className="glass-card">
                                 <div className="flex justify-between items-start mb-2">
-                                    <span className="text-xs" style={{ color: '#94A3B8' }}>{new Date(log.scanned_at).toLocaleString()}</span>
+                                    <span className="text-xs" style={{ color: '#9A9AB0' }}>{new Date(log.scanned_at).toLocaleString()}</span>
                                     <span className="inline-flex items-center gap-1 px-2 py-1 rounded-lg text-xs font-medium" style={{ background: resultColors[log.result]?.bg, color: resultColors[log.result]?.text, border: `1px solid ${resultColors[log.result]?.border}` }}>
                                         {resultIcon[log.result]} {log.result?.replace('_', ' ')}
                                     </span>
                                 </div>
-                                <div className="space-y-1 text-xs" style={{ color: '#64748B' }}>
+                                <div className="space-y-1 text-xs" style={{ color: '#5E5E74' }}>
                                     <p>Event: <span className="font-mono">{log.event_id?.slice(0, 12)}...</span></p>
                                     <p>Token: <span className="font-mono">{log.qr_token?.slice(0, 16)}...</span></p>
                                 </div>
@@ -153,17 +153,17 @@ export default function AdminScanLogs() {
                     {/* Pagination */}
                     {totalPages > 1 && (
                         <div className="flex items-center justify-center gap-4">
-                            <button onClick={() => setPage(Math.max(0, page - 1))} disabled={page === 0} className="p-2 rounded-lg transition-colors disabled:opacity-30" style={{ background: 'rgba(139,92,246,0.1)' }}>
-                                <ChevronLeft size={18} color="#D946EF" />
+                            <button onClick={() => setPage(Math.max(0, page - 1))} disabled={page === 0} className="p-2 rounded-lg transition-colors disabled:opacity-30" style={{ background: 'rgba(167,139,250,0.1)' }}>
+                                <ChevronLeft size={18} color="#C9A96E" />
                             </button>
-                            <span className="text-sm" style={{ color: '#94A3B8' }}>Page {page + 1} of {totalPages}</span>
-                            <button onClick={() => setPage(Math.min(totalPages - 1, page + 1))} disabled={page >= totalPages - 1} className="p-2 rounded-lg transition-colors disabled:opacity-30" style={{ background: 'rgba(139,92,246,0.1)' }}>
-                                <ChevronRight size={18} color="#D946EF" />
+                            <span className="text-sm" style={{ color: '#9A9AB0' }}>Page {page + 1} of {totalPages}</span>
+                            <button onClick={() => setPage(Math.min(totalPages - 1, page + 1))} disabled={page >= totalPages - 1} className="p-2 rounded-lg transition-colors disabled:opacity-30" style={{ background: 'rgba(167,139,250,0.1)' }}>
+                                <ChevronRight size={18} color="#C9A96E" />
                             </button>
                         </div>
                     )}
 
-                    {logs.length === 0 && <p className="text-center py-8 text-sm" style={{ color: '#64748B' }}>No scan logs found.</p>}
+                    {logs.length === 0 && <p className="text-center py-8 text-sm" style={{ color: '#5E5E74' }}>No scan logs found.</p>}
                 </>
             )}
         </div>

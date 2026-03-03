@@ -8,8 +8,8 @@ import { Link } from 'react-router-dom';
 const tierGradients = {
     free: 'linear-gradient(135deg, #374151, #4B5563)',
     silver: 'linear-gradient(135deg, #6B7280, #9CA3AF)',
-    gold: 'linear-gradient(135deg, #D97706, #F59E0B)',
-    vip: 'linear-gradient(135deg, #9333EA, #D946EF)',
+    gold: 'linear-gradient(135deg, #D97706, #D4A054)',
+    vip: 'linear-gradient(135deg, #9333EA, #C9A96E)',
 };
 
 export default function UserDashboard() {
@@ -39,14 +39,14 @@ export default function UserDashboard() {
     };
 
     if (loading) {
-        return <div className="flex items-center justify-center h-64"><motion.div animate={{ rotate: 360 }} transition={{ duration: 1, repeat: Infinity }} className="w-8 h-8 rounded-full border-2 border-transparent" style={{ borderTopColor: '#D946EF' }} /></div>;
+        return <div className="flex items-center justify-center h-64"><motion.div className="spinner" /></div>;
     }
 
     return (
         <div>
             <div className="mb-8">
-                <h1 className="text-2xl font-bold" style={{ color: '#F8FAFC' }}>Welcome back, {user?.name?.split(' ')[0]}</h1>
-                <p className="text-sm mt-1" style={{ color: '#94A3B8' }}>Your personal hub</p>
+                <h1 className="text-2xl font-bold" style={{ color: '#EAEAF0' }}>Welcome back, {user?.name?.split(' ')[0]}</h1>
+                <p className="text-sm mt-1" style={{ color: '#9A9AB0' }}>Your personal hub</p>
             </div>
 
             {/* Membership Card */}
@@ -72,70 +72,70 @@ export default function UserDashboard() {
             {/* Quick Stats */}
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
                 <Link to="/dashboard/passes" className="glass-card text-center hover:scale-[1.02] transition-transform">
-                    <QrCode size={20} color="#D946EF" className="mx-auto mb-2" />
-                    <p className="text-xl font-bold" style={{ color: '#F8FAFC' }}>{passes.length}</p>
-                    <p className="text-xs" style={{ color: '#94A3B8' }}>QR Passes</p>
+                    <QrCode size={20} color="#C9A96E" className="mx-auto mb-2" />
+                    <p className="text-xl font-bold" style={{ color: '#EAEAF0' }}>{passes.length}</p>
+                    <p className="text-xs" style={{ color: '#9A9AB0' }}>QR Passes</p>
                 </Link>
                 <Link to="/dashboard/events" className="glass-card text-center hover:scale-[1.02] transition-transform">
-                    <Calendar size={20} color="#8B5CF6" className="mx-auto mb-2" />
-                    <p className="text-xl font-bold" style={{ color: '#F8FAFC' }}>{passes.filter(p => p.status === 'active').length}</p>
-                    <p className="text-xs" style={{ color: '#94A3B8' }}>Active Events</p>
+                    <Calendar size={20} color="#A78BFA" className="mx-auto mb-2" />
+                    <p className="text-xl font-bold" style={{ color: '#EAEAF0' }}>{passes.filter(p => p.status === 'active').length}</p>
+                    <p className="text-xs" style={{ color: '#9A9AB0' }}>Active Events</p>
                 </Link>
                 <Link to="/dashboard/payments" className="glass-card text-center hover:scale-[1.02] transition-transform">
-                    <CreditCard size={20} color="#06B6D4" className="mx-auto mb-2" />
-                    <p className="text-xl font-bold" style={{ color: '#F8FAFC' }}>{payments.length}</p>
-                    <p className="text-xs" style={{ color: '#94A3B8' }}>Payments</p>
+                    <CreditCard size={20} color="#A78BFA" className="mx-auto mb-2" />
+                    <p className="text-xl font-bold" style={{ color: '#EAEAF0' }}>{payments.length}</p>
+                    <p className="text-xs" style={{ color: '#9A9AB0' }}>Payments</p>
                 </Link>
                 <Link to="/dashboard/rewards" className="glass-card text-center hover:scale-[1.02] transition-transform">
-                    <Star size={20} color="#F59E0B" className="mx-auto mb-2" />
-                    <p className="text-xl font-bold" style={{ color: '#F8FAFC' }}>{loyalty?.total_points || 0}</p>
-                    <p className="text-xs" style={{ color: '#94A3B8' }}>Loyalty Points</p>
+                    <Star size={20} color="#D4A054" className="mx-auto mb-2" />
+                    <p className="text-xl font-bold" style={{ color: '#EAEAF0' }}>{loyalty?.total_points || 0}</p>
+                    <p className="text-xs" style={{ color: '#9A9AB0' }}>Loyalty Points</p>
                 </Link>
             </div>
 
             {/* Recent Passes */}
             <div className="mb-8">
                 <div className="flex justify-between items-center mb-4">
-                    <h2 className="text-lg font-semibold" style={{ color: '#F8FAFC' }}>Recent Passes</h2>
-                    <Link to="/dashboard/passes" className="text-xs font-medium" style={{ color: '#D946EF' }}>View All →</Link>
+                    <h2 className="text-lg font-semibold" style={{ color: '#EAEAF0' }}>Recent Passes</h2>
+                    <Link to="/dashboard/passes" className="text-xs font-medium" style={{ color: '#C9A96E' }}>View All →</Link>
                 </div>
                 <div className="dashboard-grid">
                     {passes.slice(0, 3).map((pass, i) => (
                         <motion.div key={pass.id} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }} className="glass-card">
                             <div className="flex justify-between items-start mb-3">
-                                <h3 className="text-sm font-semibold" style={{ color: '#F8FAFC' }}>{pass.event_title}</h3>
+                                <h3 className="text-sm font-semibold" style={{ color: '#EAEAF0' }}>{pass.event_title}</h3>
                                 <span className={`badge text-xs ${pass.status === 'active' ? 'badge-success' : pass.status === 'used' ? 'badge-warning' : 'badge-danger'}`}>{pass.status}</span>
                             </div>
                             <div className="flex items-center justify-center py-2">
-                                <div className="w-20 h-20 rounded-lg qr-pulse flex items-center justify-center" style={{ background: 'rgba(217,70,239,0.05)', border: '1px solid rgba(217,70,239,0.2)' }}>
-                                    <QrCode size={36} color="#D946EF" />
+                                <div className="w-20 h-20 rounded-lg qr-pulse flex items-center justify-center" style={{ background: 'rgba(201,169,110,0.05)', border: '1px solid rgba(201,169,110,0.2)' }}>
+                                    <QrCode size={36} color="#C9A96E" />
                                 </div>
                             </div>
-                            <p className="text-xs text-center mt-2" style={{ color: '#64748B' }}>Scans: {pass.scan_count}/{pass.max_scans}</p>
+                            <p className="text-xs text-center mt-2" style={{ color: '#5E5E74' }}>Scans: {pass.scan_count}/{pass.max_scans}</p>
                         </motion.div>
                     ))}
                 </div>
-                {passes.length === 0 && <p className="text-center py-8 text-sm glass-card" style={{ color: '#64748B' }}>No passes yet. Browse events to get started!</p>}
+                {passes.length === 0 && <p className="text-center py-8 text-sm glass-card" style={{ color: '#5E5E74' }}>No passes yet. Browse events to get started!</p>}
             </div>
 
             {/* Next Tier Progress */}
             {membership?.next_tier && (
                 <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="glass-card">
                     <div className="flex items-center gap-2 mb-3">
-                        <TrendingUp size={18} color="#8B5CF6" />
-                        <h3 className="font-semibold text-sm" style={{ color: '#F8FAFC' }}>Progress to {membership.next_tier}</h3>
+                        <TrendingUp size={18} color="#A78BFA" />
+                        <h3 className="font-semibold text-sm" style={{ color: '#EAEAF0' }}>Progress to {membership.next_tier}</h3>
                     </div>
                     <div className="grid grid-cols-2 gap-4 text-xs">
                         <div>
-                            <p className="mb-1" style={{ color: '#94A3B8' }}>Spend: ${membership.total_spend.toFixed(0)} / ${(membership.total_spend + (membership.spend_to_next_tier || 0)).toFixed(0)}</p>
-                            <div className="h-2 rounded-full" style={{ background: 'rgba(139,92,246,0.15)' }}>
-                                <div className="h-full rounded-full" style={{ width: `${Math.min(100, (membership.total_spend / (membership.total_spend + (membership.spend_to_next_tier || 1))) * 100)}%`, background: 'linear-gradient(90deg, #D946EF, #8B5CF6)' }} />
+                            <p className="mb-1" style={{ color: '#9A9AB0' }}>Spend: ${membership.total_spend.toFixed(0)} / ${(membership.total_spend + (membership.spend_to_next_tier || 0)).toFixed(0)}</p>
+                            <div className="h-2 rounded-full" style={{ background: 'rgba(167,139,250,0.15)' }}>
+                                <div className="h-full rounded-full" style={{ width: `${Math.min(100, (membership.total_spend / (membership.total_spend + (membership.spend_to_next_tier || 1))) * 100)}%`, background: 'linear-gradient(90deg, #C9A96E, #A78BFA)' }} />
                             </div>
                         </div>
                         <div>
-                            <p className="mb-1" style={{ color: '#94A3B8' }}>Points: {membership.loyalty_points} / {membership.loyalty_points + (membership.points_to_next_tier || 0)}</p>
-                            <div className="h-2 rounded-full" style={{ background: 'rgba(139,92,246,0.15)' }}>
-                                <div className="h-full rounded-full" style={{ width: `${Math.min(100, (membership.loyalty_points / (membership.loyalty_points + (membership.points_to_next_tier || 1))) * 100)}%`, background: 'linear-gradient(90deg, #06B6D4, #8B5CF6)' }} />
+                            <p className="mb-1" style={{ color: '#9A9AB0' }}>Points: {membership.loyalty_points} / {membership.loyalty_points + (membership.points_to_next_tier || 0)}</p>
+                            <div className="h-2 rounded-full" style={{ background: 'rgba(167,139,250,0.15)' }}>
+                                <div className="h-full rounded-full" style={{ width: `${Math.min(100, (membership.loyalty_points / (membership.loyalty_points + (membership.points_to_next_tier || 1))) * 100)}%`, background: 'linear-gradient(90deg, #A78BFA, #A78BFA)' }} />
                             </div>
                         </div>
                     </div>

@@ -38,6 +38,7 @@ from app.routes.payments import router as payments_router
 from app.routes.memberships import router as memberships_router
 from app.routes.loyalty import router as loyalty_router
 from app.routes.analytics import router as analytics_router
+from app.routes.stripe_webhooks import router as stripe_router
 
 app.include_router(auth_router)
 app.include_router(events_router)
@@ -46,6 +47,7 @@ app.include_router(payments_router)
 app.include_router(memberships_router)
 app.include_router(loyalty_router)
 app.include_router(analytics_router)
+app.include_router(stripe_router)
 
 
 @app.get("/api/health")

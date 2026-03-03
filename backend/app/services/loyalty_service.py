@@ -67,33 +67,38 @@ async def redeem_points(
     user_id: str,
     redeem_data: RedeemRequest,
 ) -> LoyaltyTransaction:
-    """Redeem loyalty points for a reward.
+    """Redeem loyalty points for a reward (atomic, race-condition-safe).
 
-    Args:
-        user_id: User's ID.
-        redeem_data: Redemption details (type, points, optional event_id).
-
-    Returns:
-        The loyalty transaction record.
+    Uses MongoDB's find_one_and_update with a balance check in the query
+    filter. This makes it physically impossible to go negative or double-redeem
+    even under concurrent requests.
     """
     db = get_database()
+    from pymongo import ReturnDocument
 
-    user = await db.users.find_one({"_id": ObjectId(user_id)})
-    if not user:
-        raise HTTPException(status_code=404, detail="User not found")
+    # Atomic: only deducts if balance >= requested points
+    updated_user = await db.users.find_one_and_update(
+        {
+            "_id": ObjectId(user_id),
+            "loyalty_points": {"$gte": redeem_data.points},
+        },
+        {"$inc": {"loyalty_points": -redeem_data.points}},
+        return_document=ReturnDocument.AFTER,
+    )
 
-    current_points = user.get("loyalty_points", 0)
-    if current_points < redeem_data.points:
+    if updated_user is None:
+        # Either user doesn't exist or insufficient points
+        user = await db.users.find_one({"_id": ObjectId(user_id)})
+        if not user:
+            raise HTTPException(status_code=404, detail="User not found")
+        current = user.get("loyalty_points", 0)
+        deficit = redeem_data.points - current
         raise HTTPException(
             status_code=400,
-            detail=f"Insufficient points. Have {current_points}, need {redeem_data.points}",
+            detail=f"Insufficient points. You need {deficit} more points.",
         )
 
-    # Deduct points
-    await db.users.update_one(
-        {"_id": ObjectId(user_id)},
-        {"$inc": {"loyalty_points": -redeem_data.points}}
-    )
+    balance_after = updated_user.get("loyalty_points", 0)
 
     # Determine transaction type
     type_map = {
@@ -102,9 +107,6 @@ async def redeem_points(
         "upgrade": PointsTransactionType.REDEEM_UPGRADE,
     }
     txn_type = type_map.get(redeem_data.reward_type, PointsTransactionType.REDEEM_DISCOUNT)
-
-    updated_user = await db.users.find_one({"_id": ObjectId(user_id)})
-    balance_after = updated_user.get("loyalty_points", 0)
 
     txn = LoyaltyTransaction(
         user_id=user_id,

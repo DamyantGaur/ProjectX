@@ -13,6 +13,11 @@ class Settings(BaseSettings):
     QR_SECRET: str = "projectx_qr_default_secret"
     CORS_ORIGINS: str = "http://localhost:5173,http://localhost:3000"
 
+    # Stripe payment integration (leave empty to use mock payments)
+    STRIPE_SECRET_KEY: str = ""
+    STRIPE_PUBLISHABLE_KEY: str = ""
+    STRIPE_WEBHOOK_SECRET: str = ""
+
     @property
     def cors_origins_list(self) -> List[str]:
         return [origin.strip() for origin in self.CORS_ORIGINS.split(",")]

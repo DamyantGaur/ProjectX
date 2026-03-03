@@ -51,7 +51,7 @@ def generate_qr_image_base64(data: str) -> str:
     qr.add_data(data)
     qr.make(fit=True)
 
-    img = qr.make_image(fill_color="#D946EF", back_color="#020005")
+    img = qr.make_image(fill_color="black", back_color="white")
     buffer = io.BytesIO()
     img.save(buffer, format="PNG")
     buffer.seek(0)

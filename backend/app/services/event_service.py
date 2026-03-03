@@ -11,6 +11,18 @@ async def create_event(event_data: EventCreate, admin_id: str) -> EventResponse:
     """Create a new event (admin only)."""
     db = get_database()
 
+    # Prevent duplicate events (same title + date + venue)
+    existing = await db.events.find_one({
+        "title": event_data.title.strip(),
+        "date": event_data.date,
+        "venue": event_data.venue.strip(),
+    })
+    if existing:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="An event with the same title, date, and venue already exists",
+        )
+
     event_doc = EventInDB(
         title=event_data.title,
         description=event_data.description,
@@ -70,19 +82,19 @@ async def get_event_by_id(event_id: str) -> Optional[EventResponse]:
 
     return EventResponse(
         id=str(event["_id"]),
-        title=event["title"],
-        description=event["description"],
-        venue=event["venue"],
-        date=event["date"],
-        capacity=event["capacity"],
+        title=event.get("title", "Untitled"),
+        description=event.get("description", ""),
+        venue=event.get("venue", "TBA"),
+        date=event.get("date", datetime.utcnow()),
+        capacity=event.get("capacity", 0),
         price=event.get("price", 0),
         image_url=event.get("image_url"),
         tags=event.get("tags", []),
-        is_active=event.get("is_active", True),
-        attendee_count=event.get("attendee_count", 0),
-        created_by=event["created_by"],
-        created_at=event["created_at"],
-        updated_at=event.get("updated_at", event["created_at"]),
+        is_active=event.get("is_active") if event.get("is_active") is not None else True,
+        attendee_count=event.get("attendee_count") or 0,
+        created_by=event.get("created_by") or "system",
+        created_at=event.get("created_at") or datetime.utcnow(),
+        updated_at=event.get("updated_at") or event.get("created_at") or datetime.utcnow(),
     )
 
 
@@ -100,19 +112,19 @@ async def get_all_events(
     async for event in cursor:
         events.append(EventResponse(
             id=str(event["_id"]),
-            title=event["title"],
-            description=event["description"],
-            venue=event["venue"],
-            date=event["date"],
-            capacity=event["capacity"],
+            title=event.get("title", "Untitled"),
+            description=event.get("description", ""),
+            venue=event.get("venue", "TBA"),
+            date=event.get("date", datetime.utcnow()),
+            capacity=event.get("capacity", 0),
             price=event.get("price", 0),
             image_url=event.get("image_url"),
             tags=event.get("tags", []),
-            is_active=event.get("is_active", True),
-            attendee_count=event.get("attendee_count", 0),
-            created_by=event["created_by"],
-            created_at=event["created_at"],
-            updated_at=event.get("updated_at", event["created_at"]),
+            is_active=event.get("is_active") if event.get("is_active") is not None else True,
+            attendee_count=event.get("attendee_count") or 0,
+            created_by=event.get("created_by") or "system",
+            created_at=event.get("created_at") or datetime.utcnow(),
+            updated_at=event.get("updated_at") or event.get("created_at") or datetime.utcnow(),
         ))
     return events
 

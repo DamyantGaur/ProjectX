@@ -7,13 +7,8 @@ export default function ProtectedRoute({ children, allowedRoles }) {
 
     if (loading) {
         return (
-            <div className="min-h-screen flex items-center justify-center" style={{ background: '#020005' }}>
-                <motion.div
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
-                    className="w-10 h-10 rounded-full border-2 border-transparent"
-                    style={{ borderTopColor: '#D946EF', borderRightColor: '#8B5CF6' }}
-                />
+            <div className="min-h-screen flex items-center justify-center" style={{ background: '#0D0D14' }}>
+                <div className="spinner" style={{ width: '32px', height: '32px' }} />
             </div>
         );
     }
@@ -23,13 +18,18 @@ export default function ProtectedRoute({ children, allowedRoles }) {
     }
 
     if (allowedRoles && !allowedRoles.includes(user.role)) {
-        // Redirect to appropriate dashboard based on role
+        // Redirect to appropriate dashboard based on role if they try to access an unauthorized route
         const dashboardMap = {
             admin: '/admin',
             staff: '/staff',
             user: '/dashboard',
         };
         return <Navigate to={dashboardMap[user.role] || '/dashboard'} replace />;
+    }
+
+    // Special case for root paths to ensure admins don't get stuck in staff views
+    if (user.role === 'admin' && window.location.pathname === '/staff') {
+        return <Navigate to="/admin" replace />;
     }
 
     return children;

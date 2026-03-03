@@ -42,6 +42,7 @@ class UserResponse(BaseModel):
     role: UserRole
     membership_tier: MembershipTier = MembershipTier.FREE
     loyalty_points: int = 0
+    profile_photo: Optional[str] = None
     created_at: datetime
     is_active: bool = True
 
@@ -54,6 +55,7 @@ class UserInDB(BaseModel):
     role: UserRole = UserRole.USER
     membership_tier: MembershipTier = MembershipTier.FREE
     loyalty_points: int = 0
+    profile_photo: Optional[str] = None
     total_spend: float = 0.0
     is_active: bool = True
     created_at: datetime = Field(default_factory=datetime.utcnow)
@@ -64,6 +66,7 @@ class UserUpdate(BaseModel):
     """Schema for updating user profile."""
     name: Optional[str] = None
     email: Optional[EmailStr] = None
+    profile_photo: Optional[str] = None
 
 
 class TokenResponse(BaseModel):

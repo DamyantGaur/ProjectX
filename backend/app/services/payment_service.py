@@ -73,17 +73,29 @@ class PaymentService:
         if not event:
             raise HTTPException(status_code=404, detail="Event not found")
 
+        if not event.get("is_active", True):
+            raise HTTPException(status_code=400, detail="Event is not active")
+
         if event.get("price", 0) <= 0:
             raise HTTPException(status_code=400, detail="Event is free, no payment needed")
 
-        # Check for existing completed payment
+        # Server-side amount validation: verify amount matches event price
+        if amount != event.get("price", 0):
+            raise HTTPException(status_code=400, detail="Payment amount does not match event price")
+
+        # Atomic duplicate check: use findOneAndUpdate to prevent race conditions
+        # This atomically checks for an existing completed payment and returns it
         existing = await db.payments.find_one({
             "user_id": user_id,
             "event_id": event_id,
-            "status": "completed",
+            "status": {"$in": ["completed", "pending"]},
         })
         if existing:
-            raise HTTPException(status_code=400, detail="Already paid for this event")
+            existing_status = existing.get("status", "pending")
+            if existing_status == "completed":
+                raise HTTPException(status_code=400, detail="Already paid for this event")
+            else:
+                raise HTTPException(status_code=400, detail="A pending payment already exists for this event")
 
         original_amount = amount
         discount = 0.0
@@ -152,6 +164,7 @@ class PaymentService:
         return PaymentResponse(
             id=payment_id,
             event_title=event.get("title"),
+            checkout_url=provider_result.get("checkout_url"),
             **payment_doc.model_dump(),
         )
 

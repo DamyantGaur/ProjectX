@@ -1,9 +1,10 @@
 """Project X - Authentication API routes."""
 from fastapi import APIRouter, Depends, HTTPException, status
+from pydantic import BaseModel
 from app.models.user import UserCreate, UserLogin, UserResponse, TokenResponse, UserUpdate
 from app.services.auth_service import (
     register_user, login_user, get_user_by_id, get_all_users,
-    update_user_role, toggle_user_active
+    update_user_role, toggle_user_active, delete_user, create_staff_user
 )
 from app.middleware.auth import get_current_user
 from app.middleware.roles import require_role
@@ -95,3 +96,73 @@ async def toggle_active(
     if not success:
         raise HTTPException(status_code=404, detail="User not found")
     return {"message": "User status toggled"}
+
+
+@router.delete("/users/{user_id}")
+async def remove_user(
+    user_id: str,
+    admin: dict = Depends(require_role("admin"))
+):
+    """Delete a user entirely (admin only)."""
+    success = await delete_user(user_id)
+    if not success:
+        raise HTTPException(status_code=404, detail="User not found")
+    return {"message": "User deleted successfully"}
+
+
+# ─── Admin: Create Staff/Admin Account ───
+
+class CreateStaffRequest(BaseModel):
+    name: str
+    email: str
+    password: str
+    role: str = "staff"  # "staff" or "admin"
+
+@router.post("/create-staff")
+async def create_staff_endpoint(
+    data: CreateStaffRequest,
+    admin: dict = Depends(require_role("admin")),
+):
+    """Create a staff or admin account (admin only)."""
+    user = await create_staff_user(data.name, data.email, data.password, data.role)
+    return user
+
+
+# ─── Profile photo upload ───
+
+class PhotoUpload(BaseModel):
+    photo: str  # Base64-encoded image data
+
+@router.post("/me/photo")
+async def upload_photo(
+    data: PhotoUpload,
+    current_user: dict = Depends(get_current_user),
+):
+    """Upload a profile photo (Base64, max ~1 MB)."""
+    import base64
+
+    # Validate size (Base64 is ~33% larger than raw, so 1.4MB base64 ≈ 1MB image)
+    if len(data.photo) > 1_400_000:
+        raise HTTPException(status_code=400, detail="Image too large. Max size is 1 MB.")
+
+    # Basic validation: must be a data URI or raw base64
+    photo_str = data.photo
+    if photo_str.startswith("data:image"):
+        # Strip the data URI prefix to validate the base64 portion
+        try:
+            header, b64data = photo_str.split(",", 1)
+            base64.b64decode(b64data)
+        except Exception:
+            raise HTTPException(status_code=400, detail="Invalid image data")
+    else:
+        try:
+            base64.b64decode(photo_str)
+        except Exception:
+            raise HTTPException(status_code=400, detail="Invalid image data")
+
+    db = get_database()
+    await db.users.update_one(
+        {"_id": ObjectId(current_user["id"])},
+        {"$set": {"profile_photo": photo_str, "updated_at": datetime.utcnow()}}
+    )
+    return {"message": "Photo updated successfully"}

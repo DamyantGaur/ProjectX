@@ -39,9 +39,12 @@ export const authAPI = {
     login: (data) => client.post('/api/auth/login', data),
     getMe: () => client.get('/api/auth/me'),
     updateMe: (data) => client.put('/api/auth/me', data),
+    uploadPhoto: (photo) => client.post('/api/auth/me/photo', { photo }),
+    createStaff: (data) => client.post('/api/auth/create-staff', data),
     listUsers: (skip = 0, limit = 50) => client.get(`/api/auth/users?skip=${skip}&limit=${limit}`),
     changeRole: (userId, role) => client.put(`/api/auth/users/${userId}/role?role=${role}`),
     toggleActive: (userId) => client.put(`/api/auth/users/${userId}/toggle-active`),
+    deleteUser: (userId) => client.delete(`/api/auth/users/${userId}`),
 };
 
 export const eventsAPI = {
@@ -65,6 +68,7 @@ export const paymentsAPI = {
     confirm: (data) => client.post('/api/payments/confirm', data),
     history: () => client.get('/api/payments/history'),
     listAll: (skip = 0, limit = 50) => client.get(`/api/payments/all?skip=${skip}&limit=${limit}`),
+    getConfig: () => client.get('/api/payments/config'),
 };
 
 export const membershipsAPI = {
