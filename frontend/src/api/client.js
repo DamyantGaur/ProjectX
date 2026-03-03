@@ -48,12 +48,12 @@ export const authAPI = {
 };
 
 export const eventsAPI = {
-    list: (activeOnly = false) => client.get(`/api/events/?active_only=${activeOnly}`),
-    get: (id) => client.get(`/api/events/${id}`),
-    create: (data) => client.post('/api/events/', data),
-    update: (id, data) => client.put(`/api/events/${id}`, data),
-    delete: (id) => client.delete(`/api/events/${id}`),
-    toggleActive: (id) => client.put(`/api/events/${id}/toggle-active`),
+    list: (activeOnly = false) => client.get(`/api/events?active_only=${activeOnly}`),
+    get: (id) => client.get(`/api/events${id}`),
+    create: (data) => client.post('/api/events', data),
+    update: (id, data) => client.put(`/api/events${id}`, data),
+    delete: (id) => client.delete(`/api/events${id}`),
+    toggleActive: (id) => client.put(`/api/events${id}/toggle-active`),
 };
 
 export const qrAPI = {
