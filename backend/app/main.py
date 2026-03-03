@@ -24,11 +24,26 @@ app = FastAPI(
 # CORS configuration
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=settings.cors_origins_list,
-    allow_credentials=True,
+    allow_origins=["*"],
+    allow_credentials=False, # Changed to False for "*" compatibility
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+@app.middleware("http")
+async def log_requests(request, call_next):
+    print(f"Request: {request.method} {request.url}")
+    try:
+        response = await call_next(request)
+        print(f"Response status: {response.status_code}")
+        return response
+    except Exception as e:
+        import traceback
+        print(f"CRASH: {str(e)}")
+        traceback.print_exc()
+        from fastapi.responses import JSONResponse
+        return JSONResponse(status_code=500, content={"detail": f"Internal Server Error: {str(e)}", "traceback": traceback.format_exc()})
+
 
 # ─── Import and include all routers ───
 from app.routes.auth import router as auth_router
