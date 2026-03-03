@@ -11,7 +11,7 @@ from app.middleware.roles import require_role
 router = APIRouter(prefix="/api/events", tags=["Events"])
 
 
-@router.post("/", response_model=EventResponse, status_code=201)
+@router.post("", response_model=EventResponse, status_code=201)
 async def create_new_event(
     event_data: EventCreate,
     admin: dict = Depends(require_role("admin")),
@@ -20,7 +20,7 @@ async def create_new_event(
     return await create_event(event_data, admin["id"])
 
 
-@router.get("/", response_model=list[EventResponse])
+@router.get("", response_model=list[EventResponse])
 async def list_events(
     skip: int = Query(0, ge=0),
     limit: int = Query(50, ge=1, le=100),
