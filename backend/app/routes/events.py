@@ -8,7 +8,7 @@ from app.services.event_service import (
 from app.middleware.auth import get_current_user
 from app.middleware.roles import require_role
 
-router = APIRouter(prefix="/api/events", tags=["Events"])
+router = APIRouter(prefix="/api/events/", tags=["Events"])
 
 
 @router.post("/", response_model=EventResponse, status_code=201)

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE = import.meta.env.VITE_API_URL || '';
+const API_BASE = ''; // Forced for Vercel Proxy consistency
 
 const client = axios.create({
     baseURL: API_BASE,
@@ -48,9 +48,9 @@ export const authAPI = {
 };
 
 export const eventsAPI = {
-    list: (activeOnly = false) => client.get(`/api/events?active_only=${activeOnly}`),
+    list: (activeOnly = false) => client.get(`/api/events/?active_only=${activeOnly}`),
     get: (id) => client.get(`/api/events/${id}`),
-    create: (data) => client.post('/api/events', data),
+    create: (data) => client.post('/api/events/', data),
     update: (id, data) => client.put(`/api/events/${id}`, data),
     delete: (id) => client.delete(`/api/events/${id}`),
     toggleActive: (id) => client.put(`/api/events/${id}/toggle-active`),

@@ -12,11 +12,16 @@ export default function AdminEvents() {
 
     useEffect(() => { loadEvents(); }, []);
 
-    const loadEvents = async () => {
+        const loadEvents = async () => {
         try {
             const res = await eventsAPI.list();
             setEvents(res.data);
-        } catch (err) { console.error(err); }
+        } catch (err) { 
+            console.error(err);
+            const status = err.response?.status;
+            const msg = err.response?.data?.detail;
+            alert(`Load Events Failed (${status || 'Network'}): ${typeof msg === 'string' ? msg : 'Check connection'}`);
+        }
         finally { setLoading(false); }
     };
 
