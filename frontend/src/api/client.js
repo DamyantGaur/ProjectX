@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE = ''; // Forced for Vercel Proxy consistency
+const API_BASE = '';
 
 const client = axios.create({
     baseURL: API_BASE,
