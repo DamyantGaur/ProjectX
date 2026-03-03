@@ -1,8 +1,8 @@
-﻿{
+{
     "rewrites": [
         {
             "source": "/api/(.*)",
-            "destination": "https://projectx-production-130f.up.railway.app/api/$1"
+            "destination": "https://projectx-production-130f.up.railway.app/api/"
         },
         {
             "source": "/(.*)",
