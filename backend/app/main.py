@@ -80,7 +80,7 @@ async def health_check():
     """Health check endpoint."""
     return {"status": "operational", "service": "Project X API", "version": "1.0.0"}
 
-@app.api_route("/{path_name:path}", methods=["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"])
+@app.api_route("/{path_name:path}", methods=["GET", "POST", "PUT", "DELETE", "PATCH"])
 async def catch_all(path_name: str):
     print(f"CATCH-ALL 404: {path_name}")
     from fastapi.responses import JSONResponse
