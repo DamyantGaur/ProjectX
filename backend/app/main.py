@@ -22,12 +22,21 @@ app = FastAPI(
 )
 
 # CORS configuration
-# Vercel handles CORS at the edge level via vercel.json headers.
-# Backend uses wildcard for simplicity since it sits behind the Vercel proxy.
+# Using a specific list of origins allows reflecting the Origin header,
+# which is more reliable than "*" for requests with Authorization headers.
+ALLOWED_ORIGINS = [
+    "https://projectx-seven-azure.vercel.app",
+    "https://projectx-git-master-damyantgaurs-projects.vercel.app",
+    "https://projectx-1cssgh4cj-damyantgaurs-projects.vercel.app",
+    "http://localhost:5173",
+    "http://localhost:3000",
+    "http://127.0.0.1:5173",
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=False,
+    allow_origins=ALLOWED_ORIGINS,
+    allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
