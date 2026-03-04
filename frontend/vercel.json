@@ -1,27 +1,48 @@
 {
-    "rewrites": [
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "https://projectx-production-d45e.up.railway.app/api/:path*"
+    },
+    {
+      "source": "/:path*",
+      "destination": "/index.html"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/api/(.*)",
+      "headers": [
         {
-            "source": "/api/:path*",
-            "destination": "https://projectx-production-d45e.up.railway.app/api/:path*"
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
         },
         {
-            "source": "/:path*",
-            "destination": "/index.html"
-        }
-    ],
-    "headers": [
+          "key": "Access-Control-Allow-Methods",
+          "value": "GET,OPTIONS,PATCH,DELETE,POST,PUT"
+        },
         {
-            "source": "/:path*",
-            "headers": [
-                {
-                    "key": "X-Content-Type-Options",
-                    "value": "nosniff"
-                },
-                {
-                    "key": "X-Frame-Options",
-                    "value": "DENY"
-                }
-            ]
+          "key": "Access-Control-Allow-Headers",
+          "value": "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, Authorization"
+        },
+        {
+          "key": "Access-Control-Allow-Credentials",
+          "value": "true"
         }
-    ]
+      ]
+    },
+    {
+      "source": "/:path*",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        }
+      ]
+    }
+  ]
 }
