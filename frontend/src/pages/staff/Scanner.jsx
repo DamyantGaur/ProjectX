@@ -89,19 +89,19 @@ export default function StaffScanner() {
     };
 
     const resultStyles = {
-        approved: { bg: 'rgba(91,154,111,0.1)', border: 'rgba(91,154,111,0.3)', icon: <CheckCircle size={48} color="#5B9A6F" />, color: '#5B9A6F' },
-        already_used: { bg: 'rgba(192,96,112,0.1)', border: 'rgba(192,96,112,0.3)', icon: <XCircle size={48} color="#C06070" />, color: '#C06070' },
-        expired: { bg: 'rgba(212,160,84,0.1)', border: 'rgba(212,160,84,0.3)', icon: <Clock size={48} color="#D4A054" />, color: '#D4A054' },
-        payment_pending: { bg: 'rgba(212,160,84,0.1)', border: 'rgba(212,160,84,0.3)', icon: <AlertTriangle size={48} color="#D4A054" />, color: '#D4A054' },
-        invalid: { bg: 'rgba(192,96,112,0.1)', border: 'rgba(192,96,112,0.3)', icon: <XCircle size={48} color="#C06070" />, color: '#C06070' },
-        error: { bg: 'rgba(192,96,112,0.1)', border: 'rgba(192,96,112,0.3)', icon: <AlertTriangle size={48} color="#C06070" />, color: '#C06070' },
+        approved: { bg: 'rgba(91,154,111,0.1)', border: 'rgba(91,154,111,0.3)', icon: <CheckCircle size={48} color="var(--color-accent-emerald)" />, color: '#5B9A6F' },
+        already_used: { bg: 'rgba(192,96,112,0.1)', border: 'rgba(192,96,112,0.3)', icon: <XCircle size={48} color="var(--color-accent-rose)" />, color: '#C06070' },
+        expired: { bg: 'rgba(212,160,84,0.1)', border: 'rgba(212,160,84,0.3)', icon: <Clock size={48} color="var(--color-accent-amber)" />, color: '#D4A054' },
+        payment_pending: { bg: 'rgba(212,160,84,0.1)', border: 'rgba(212,160,84,0.3)', icon: <AlertTriangle size={48} color="var(--color-accent-amber)" />, color: '#D4A054' },
+        invalid: { bg: 'rgba(192,96,112,0.1)', border: 'rgba(192,96,112,0.3)', icon: <XCircle size={48} color="var(--color-accent-rose)" />, color: '#C06070' },
+        error: { bg: 'rgba(192,96,112,0.1)', border: 'rgba(192,96,112,0.3)', icon: <AlertTriangle size={48} color="var(--color-accent-rose)" />, color: '#C06070' },
     };
 
     return (
         <div className="max-w-2xl mx-auto">
             <div className="mb-8">
-                <h1 className="text-2xl font-bold" style={{ color: '#EAEAF0' }}>QR Scanner</h1>
-                <p className="text-sm mt-1" style={{ color: '#9A9AB0' }}>Scan QR codes to validate entry</p>
+                <h1 className="text-2xl font-bold" >QR Scanner</h1>
+                <p className="text-sm mt-1" style={{ color: 'var(--color-text-secondary)' }}>Scan QR codes to validate entry</p>
             </div>
 
             {/* Hidden reader for file scanning */}
@@ -109,13 +109,13 @@ export default function StaffScanner() {
 
             {/* Mode Toggle */}
             <div className="flex gap-2 mb-6">
-                <button onClick={() => { setMode('camera'); stopCamera(); }} className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-medium transition-all" style={{ background: mode === 'camera' ? 'rgba(201,169,110,0.15)' : 'transparent', color: mode === 'camera' ? '#C9A96E' : '#9A9AB0', border: `1px solid ${mode === 'camera' ? 'rgba(201,169,110,0.3)' : 'rgba(167,139,250,0.15)'}` }}>
+                <button onClick={() => { setMode('camera'); stopCamera(); }} className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-medium transition-all" className={mode === "camera" ? "flex-1 flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-medium transition-all bg-[var(--color-accent-gold)]/20 text-[var(--color-accent-gold)] border border-[var(--color-accent-gold)]/40" : "flex-1 flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-medium transition-all bg-transparent text-[var(--color-text-secondary)] border border-white/10"}>
                     <Camera size={16} /> Live
                 </button>
-                <button onClick={() => { setMode('photo'); stopCamera(); }} className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-medium transition-all" style={{ background: mode === 'photo' ? 'rgba(201,169,110,0.15)' : 'transparent', color: mode === 'photo' ? '#C9A96E' : '#9A9AB0', border: `1px solid ${mode === 'photo' ? 'rgba(201,169,110,0.3)' : 'rgba(167,139,250,0.15)'}` }}>
+                <button onClick={() => { setMode('photo'); stopCamera(); }} className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-medium transition-all" className={mode === "photo" ? "flex-1 flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-medium transition-all bg-[var(--color-accent-gold)]/20 text-[var(--color-accent-gold)] border border-[var(--color-accent-gold)]/40" : "flex-1 flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-medium transition-all bg-transparent text-[var(--color-text-secondary)] border border-white/10"}>
                     <ScanLine size={16} /> Photo
                 </button>
-                <button onClick={() => { setMode('manual'); stopCamera(); }} className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-medium transition-all" style={{ background: mode === 'manual' ? 'rgba(201,169,110,0.15)' : 'transparent', color: mode === 'manual' ? '#C9A96E' : '#9A9AB0', border: `1px solid ${mode === 'manual' ? 'rgba(201,169,110,0.3)' : 'rgba(167,139,250,0.15)'}` }}>
+                <button onClick={() => { setMode('manual'); stopCamera(); }} className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-medium transition-all" className={mode === "manual" ? "flex-1 flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-medium transition-all bg-[var(--color-accent-gold)]/20 text-[var(--color-accent-gold)] border border-[var(--color-accent-gold)]/40" : "flex-1 flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-medium transition-all bg-transparent text-[var(--color-text-secondary)] border border-white/10"}>
                     <Keyboard size={16} /> Manual
                 </button>
             </div>
@@ -127,9 +127,9 @@ export default function StaffScanner() {
                         <div id="qr-reader" ref={scannerRef} style={{ width: '100%' }} />
                         {!cameraActive && (
                             <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center">
-                                <ScanLine size={48} color="#C9A96E" className="mb-4 opacity-50" />
+                                <ScanLine size={48} color="var(--color-accent-gold)" className="mb-4 opacity-50" />
                                 <button onClick={startCamera} className="btn-primary text-sm mb-4">Start Live Scanner</button>
-                                <p className="text-xs max-w-xs" style={{ color: '#5E5E74' }}>
+                                <p className="text-xs max-w-xs" style={{ color: 'var(--color-text-muted)' }}>
                                     <b>Warning</b>: Live scanning requires HTTPS. If this fails on your phone, use the <b>Photo Scanner</b> tab above.
                                 </p>
                             </div>
@@ -144,11 +144,11 @@ export default function StaffScanner() {
             {/* Photo Scanner (Works on HTTP) */}
             {mode === 'photo' && (
                 <div className="glass-card mb-6 py-12 flex flex-col items-center text-center">
-                    <div className="w-20 h-20 rounded-full flex items-center justify-center mb-6" style={{ background: 'rgba(201,169,110,0.1)', border: '1px solid rgba(201,169,110,0.3)' }}>
-                        <Camera size={32} color="#C9A96E" />
+                    <div className="w-20 h-20 rounded-full flex items-center justify-center mb-6" className="bg-[var(--color-accent-gold)]/10 border border-[var(--color-accent-gold)]/30">
+                        <Camera size={32} color="var(--color-accent-gold)" />
                     </div>
                     <h3 className="text-lg font-bold mb-2">Photo Scanner</h3>
-                    <p className="text-sm px-8 mb-8" style={{ color: '#9A9AB0' }}>
+                    <p className="text-sm px-8 mb-8" style={{ color: 'var(--color-text-secondary)' }}>
                         Take a photo of the QR code using your native camera.
                         This works perfectly on any mobile device.
                     </p>
@@ -184,26 +184,26 @@ export default function StaffScanner() {
             {/* Loading */}
             {scanning && (
                 <div className="glass-card text-center py-8">
-                    <motion.div animate={{ rotate: 360 }} transition={{ duration: 1, repeat: Infinity }} className="w-10 h-10 rounded-full border-2 border-transparent mx-auto mb-3" style={{ borderTopColor: '#C9A96E', borderRightColor: '#A78BFA' }} />
-                    <p className="text-sm" style={{ color: '#9A9AB0' }}>Processing QR code...</p>
+                    <motion.div animate={{ rotate: 360 }} transition={{ duration: 1, repeat: Infinity }} className="w-10 h-10 rounded-full border-2 border-transparent mx-auto mb-3" className="border-t-[var(--color-accent-gold)] border-r-[var(--color-accent-lavender)]" />
+                    <p className="text-sm" style={{ color: 'var(--color-text-secondary)' }}>Processing QR code...</p>
                 </div>
             )}
 
             {/* Result */}
             <AnimatePresence>
                 {result && !scanning && (
-                    <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }} className="glass-card text-center py-8" style={{ background: resultStyles[result.status]?.bg, border: `2px solid ${resultStyles[result.status]?.border}` }}>
+                    <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }} className="glass-card text-center py-8" className="glass-card text-center py-8 border-2" style={{ background: "rgba(255,255,255,0.02)" }}>
                         <div className="mb-4">{resultStyles[result.status]?.icon}</div>
                         <h3 className="text-xl font-bold mb-2 uppercase" style={{ color: resultStyles[result.status]?.color }}>{result.status.replace('_', ' ')}</h3>
-                        <p className="text-sm mb-4" style={{ color: '#9A9AB0' }}>{result.message}</p>
+                        <p className="text-sm mb-4" style={{ color: 'var(--color-text-secondary)' }}>{result.message}</p>
 
                         {result.user_name && (
-                            <div className="flex items-center justify-center gap-2 text-sm mb-1" style={{ color: '#EAEAF0' }}>
+                            <div className="flex items-center justify-center gap-2 text-sm mb-1" >
                                 <User size={14} /> {result.user_name}
                             </div>
                         )}
                         {result.event_title && (
-                            <div className="flex items-center justify-center gap-2 text-sm mb-1" style={{ color: '#9A9AB0' }}>
+                            <div className="flex items-center justify-center gap-2 text-sm mb-1" style={{ color: 'var(--color-text-secondary)' }}>
                                 <Ticket size={14} /> {result.event_title}
                             </div>
                         )}

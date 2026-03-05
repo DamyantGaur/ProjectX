@@ -16,7 +16,7 @@ const item = { hidden: { opacity: 0, y: 30 }, show: { opacity: 1, y: 0, transiti
 
 export default function Landing() {
     return (
-        <div className="min-h-screen" style={{ background: '#0D0D14' }}>
+        <div className="min-h-screen" style={{ background: 'var(--color-bg-primary)' }}>
             {/* ─── Navigation ─── */}
             <nav className="fixed top-0 left-0 right-0 w-full z-50 glass" style={{ borderBottom: '1px solid rgba(167,139,250,0.08)' }}>
                 <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
@@ -25,7 +25,7 @@ export default function Landing() {
                         <span className="text-xl font-bold accent-text tracking-tight">PROJECT X</span>
                     </Link>
                     <div className="flex items-center gap-4">
-                        <Link to="/login" className="text-sm font-medium hover:text-white transition-colors" style={{ color: '#9A9AB0' }}>Sign In</Link>
+                        <Link to="/login" className="text-sm font-medium hover:text-white transition-colors" style={{ color: 'var(--color-text-secondary)' }}>Sign In</Link>
                     </div>
                 </div>
             </nav>
@@ -53,9 +53,9 @@ export default function Landing() {
                         <h1 style={{ fontSize: 'clamp(2.5rem, 6vw, 4.5rem)', fontWeight: 700, lineHeight: 1.1, marginBottom: '28px', letterSpacing: '-0.03em' }}>
                             <span className="accent-text">The Future</span>
                             <br />
-                            <span style={{ color: '#EAEAF0' }}>of Club & Event</span>
+                            <span >of Club & Event</span>
                             <br />
-                            <span style={{ color: '#EAEAF0' }}>Management</span>
+                            <span >Management</span>
                         </h1>
 
                         {/* Subtitle */}

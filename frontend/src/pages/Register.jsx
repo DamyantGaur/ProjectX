@@ -18,7 +18,7 @@ function PasswordStrength({ password }) {
 
     return (
         <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} style={{ marginTop: '8px' }}>
-            <div style={{ display: 'flex', gap: '3px', marginBottom: '6px' }}>
+            <div className="flex gap-1 mb-2">
                 {[1, 2, 3, 4, 5].map(i => (
                     <div key={i} style={{
                         flex: 1, height: '3px', borderRadius: '2px',
@@ -29,9 +29,9 @@ function PasswordStrength({ password }) {
                     }} />
                 ))}
             </div>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px 12px' }}>
+            <div className="flex flex-wrap gap-x-3 gap-y-1">
                 {checks.map((c, i) => (
-                    <span key={i} style={{ fontSize: '11px', display: 'flex', alignItems: 'center', gap: '3px', color: c.test ? '#5B9A6F' : '#5E5E74' }}>
+                    <span key={i} className={`text-[10px] flex items-center gap-1 ${c.test ? "text-[var(--color-accent-emerald)]" : "text-[var(--color-text-muted)]"}`}>
                         {c.test ? <CheckCircle2 size={10} /> : <XCircle size={10} />} {c.label}
                     </span>
                 ))}
@@ -83,10 +83,10 @@ export default function Register() {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center px-4 py-12" style={{ background: 'linear-gradient(145deg, #0D0D14 0%, #12121E 50%, #0D0D14 100%)' }}>
+        <div className="min-h-screen flex items-center justify-center px-4 py-12" className="min-h-screen bg-[var(--color-bg-primary)] flex items-center justify-center px-4 py-12">
             <div className="fixed inset-0 pointer-events-none overflow-hidden">
-                <div className="absolute top-1/3 right-1/4 w-80 h-80 rounded-full" style={{ opacity: 0.05, background: 'radial-gradient(circle, #A78BFA, transparent)', filter: 'blur(100px)' }} />
-                <div className="absolute bottom-1/3 left-1/4 w-80 h-80 rounded-full" style={{ opacity: 0.06, background: 'radial-gradient(circle, #C9A96E, transparent)', filter: 'blur(100px)' }} />
+                <div className="absolute top-1/3 right-1/4 w-80 h-80 rounded-full" className="absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full bg-[var(--color-accent-lavender)]/10 blur-[100px]" />
+                <div className="absolute bottom-1/3 left-1/4 w-80 h-80 rounded-full" className="absolute top-1/4 left-1/4 w-80 h-80 rounded-full bg-[var(--color-accent-gold)]/10 blur-[100px]" />
             </div>
 
             <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="w-full max-w-md relative z-10">
@@ -100,32 +100,32 @@ export default function Register() {
                 <div className="glass-card neon-glow">
                     <form onSubmit={handleSubmit} className="space-y-5">
                         {error && (
-                            <motion.div initial={{ opacity: 0, x: -16 }} animate={{ opacity: 1, x: 0 }} className="flex items-center gap-2 p-3 rounded-lg" style={{ background: 'rgba(192,96,112,0.08)', border: '1px solid rgba(192,96,112,0.2)' }}>
+                            <motion.div initial={{ opacity: 0, x: -16 }} animate={{ opacity: 1, x: 0 }} className="flex items-center gap-2 p-3 rounded-xl bg-[var(--color-accent-rose)]/10 border border-[var(--color-accent-rose)]/20">
                                 <AlertCircle size={16} color="#C06070" style={{ flexShrink: 0 }} />
-                                <span className="text-sm" style={{ color: '#C06070' }}>{error}</span>
+                                <span className="text-sm" className="text-[var(--color-accent-rose)]">{error}</span>
                             </motion.div>
                         )}
 
                         <div>
-                            <label className="block text-sm font-medium mb-2" style={{ color: '#9A9AB0' }}>Full Name</label>
+                            <label className="block text-sm font-medium mb-2 text-[var(--color-text-secondary)]">Full Name</label>
                             <div className="relative">
-                                <User size={16} className="absolute left-3 top-1/2 -translate-y-1/2" style={{ color: '#5E5E74' }} />
+                                <User size={16} className="absolute left-3 top-1/2 -translate-y-1/2" className="text-[var(--color-text-muted)]" />
                                 <input id="register-name" type="text" value={name} onChange={e => setName(e.target.value)} placeholder="Your name" className="glass-input pl-10" required minLength={2} autoComplete="name" />
                             </div>
                         </div>
 
                         <div>
-                            <label className="block text-sm font-medium mb-2" style={{ color: '#9A9AB0' }}>Email</label>
+                            <label className="block text-sm font-medium mb-2 text-[var(--color-text-secondary)]">Email</label>
                             <div className="relative">
-                                <Mail size={16} className="absolute left-3 top-1/2 -translate-y-1/2" style={{ color: '#5E5E74' }} />
+                                <Mail size={16} className="absolute left-3 top-1/2 -translate-y-1/2" className="text-[var(--color-text-muted)]" />
                                 <input id="register-email" type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="your@email.com" className="glass-input pl-10" required autoComplete="email" />
                             </div>
                         </div>
 
                         <div>
-                            <label className="block text-sm font-medium mb-2" style={{ color: '#9A9AB0' }}>Password</label>
+                            <label className="block text-sm font-medium mb-2 text-[var(--color-text-secondary)]">Password</label>
                             <div className="relative">
-                                <Lock size={16} className="absolute left-3 top-1/2 -translate-y-1/2" style={{ color: '#5E5E74' }} />
+                                <Lock size={16} className="absolute left-3 top-1/2 -translate-y-1/2" className="text-[var(--color-text-muted)]" />
                                 <input id="register-password" type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Min 8 characters" className="glass-input pl-10" required minLength={8} autoComplete="new-password" />
                             </div>
                             <PasswordStrength password={password} />
@@ -140,9 +140,9 @@ export default function Register() {
                         </button>
                     </form>
 
-                    <p className="text-center mt-6 text-sm" style={{ color: '#5E5E74' }}>
+                    <p className="text-center mt-6 text-sm" className="text-[var(--color-text-muted)]">
                         Already have an account?{' '}
-                        <Link to="/login" className="font-semibold" style={{ color: '#C9A96E' }}>Sign in</Link>
+                        <Link to="/login" className="font-semibold text-[var(--color-accent-gold)]">Sign in</Link>
                     </p>
                 </div>
             </motion.div>

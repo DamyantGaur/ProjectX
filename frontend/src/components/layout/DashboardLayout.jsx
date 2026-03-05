@@ -61,7 +61,7 @@ export default function DashboardLayout() {
     }, []);
 
     return (
-        <div className="min-h-screen flex" style={{ background: '#0D0D14', color: '#EAEAF0' }}>
+        <div className="min-h-screen flex" style={{ background: 'var(--color-bg-primary)', color: '#EAEAF0' }}>
             {/* ─── Desktop Sidebar ─── */}
             <motion.aside
                 initial={false}
@@ -154,7 +154,7 @@ export default function DashboardLayout() {
                         </div>
                         {!isCollapsed && (
                             <div className="flex-1 min-w-0">
-                                <p className="text-sm font-medium truncate" style={{ color: '#EAEAF0' }}>{user?.name}</p>
+                                <p className="text-sm font-medium truncate" >{user?.name}</p>
                                 <p className="text-xs capitalize" style={{ color: tierColors[user?.membership_tier] || '#6B7280' }}>{user?.membership_tier || 'Free'} Member</p>
                             </div>
                         )}
@@ -164,7 +164,7 @@ export default function DashboardLayout() {
                         <button
                             onClick={handleLogout}
                             className="flex items-center gap-2 text-sm w-full px-3 py-2 rounded-lg transition-all"
-                            style={{ color: '#9A9AB0' }}
+                            style={{ color: 'var(--color-text-secondary)' }}
                             onMouseEnter={e => { e.currentTarget.style.color = '#C06070'; e.currentTarget.style.background = 'rgba(192,96,112,0.06)'; }}
                             onMouseLeave={e => { e.currentTarget.style.color = '#9A9AB0'; e.currentTarget.style.background = ''; }}
                         >
@@ -176,7 +176,7 @@ export default function DashboardLayout() {
                             onClick={handleLogout}
                             className="flex justify-center w-full py-2 mt-2 transition-colors"
                             title="Sign Out"
-                            style={{ color: '#9A9AB0' }}
+                            style={{ color: 'var(--color-text-secondary)' }}
                             onMouseEnter={e => e.currentTarget.style.color = '#C06070'}
                             onMouseLeave={e => e.currentTarget.style.color = '#9A9AB0'}
                         >
@@ -192,7 +192,7 @@ export default function DashboardLayout() {
                     <Sparkles size={18} color="#C9A96E" />
                     <span className="text-lg font-bold accent-text tracking-tight">PROJECT X</span>
                 </Link>
-                <button onClick={() => setMobileOpen(true)} className="p-2 min-w-[44px] min-h-[44px] flex items-center justify-center" style={{ color: '#9A9AB0' }}>
+                <button onClick={() => setMobileOpen(true)} className="p-2 min-w-[44px] min-h-[44px] flex items-center justify-center" style={{ color: 'var(--color-text-secondary)' }}>
                     <Menu size={20} />
                 </button>
             </div>
@@ -218,7 +218,7 @@ export default function DashboardLayout() {
                             <button
                                 onClick={() => setMobileOpen(false)}
                                 className="absolute top-4 right-4 p-3 min-w-[44px] min-h-[44px] flex items-center justify-center"
-                                style={{ color: '#9A9AB0' }}
+                                style={{ color: 'var(--color-text-secondary)' }}
                             >
                                 <X size={22} />
                             </button>

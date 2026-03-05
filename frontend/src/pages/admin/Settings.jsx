@@ -30,7 +30,7 @@ export default function AdminSettings() {
                 <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: `${color}15`, border: `1px solid ${color}30` }}>
                     <Icon size={20} color={color} />
                 </div>
-                <h3 className="text-base font-semibold" style={{ color: '#EAEAF0' }}>{title}</h3>
+                <h3 className="text-base font-semibold" >{title}</h3>
             </div>
             {children}
         </motion.div>
@@ -38,7 +38,7 @@ export default function AdminSettings() {
 
     const Field = ({ label, name, type = 'text', placeholder, note }) => (
         <div>
-            <label className="block text-xs font-medium mb-1.5" style={{ color: '#9A9AB0' }}>{label}</label>
+            <label className="block text-xs font-medium mb-1.5" style={{ color: 'var(--color-text-secondary)' }}>{label}</label>
             <input
                 type={type}
                 value={settings[name]}
@@ -46,7 +46,7 @@ export default function AdminSettings() {
                 placeholder={placeholder}
                 className="glass-input text-sm"
             />
-            {note && <p className="text-xs mt-1" style={{ color: '#5E5E74' }}>{note}</p>}
+            {note && <p className="text-xs mt-1" style={{ color: 'var(--color-text-muted)' }}>{note}</p>}
         </div>
     );
 
@@ -54,8 +54,8 @@ export default function AdminSettings() {
         <div className="max-w-3xl">
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
                 <div>
-                    <h1 className="text-2xl font-bold" style={{ color: '#EAEAF0' }}>System Settings</h1>
-                    <p className="text-sm mt-1" style={{ color: '#9A9AB0' }}>Configure platform settings</p>
+                    <h1 className="text-2xl font-bold" >System Settings</h1>
+                    <p className="text-sm mt-1" style={{ color: 'var(--color-text-secondary)' }}>Configure platform settings</p>
                 </div>
                 <button onClick={handleSave} className="btn-primary flex items-center gap-2 text-sm">
                     <Save size={16} /> {saved ? 'Saved!' : 'Save Changes'}
@@ -63,15 +63,15 @@ export default function AdminSettings() {
             </div>
 
             {/* Info Banner */}
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="glass-card mb-6 flex items-start gap-3" style={{ borderLeft: '3px solid #A78BFA' }}>
-                <Info size={18} color="#A78BFA" className="mt-0.5 shrink-0" />
-                <p className="text-sm" style={{ color: '#9A9AB0' }}>
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="glass-card mb-6 flex items-start gap-3" className="border-l-4 border-[var(--color-accent-lavender)]">
+                <Info size={18} color="var(--color-accent-lavender)" className="mt-0.5 shrink-0" />
+                <p className="text-sm" style={{ color: 'var(--color-text-secondary)' }}>
                     Settings are stored locally in this preview. In production, these will persist to the database and be applied across all services.
                 </p>
             </motion.div>
 
             {/* Stripe Integration */}
-            <Section icon={CreditCard} title="Payment Integration (Stripe)" color="#A78BFA">
+            <Section icon={CreditCard} title="Payment Integration (Stripe)" color="var(--color-accent-lavender)">
                 <div className="grid sm:grid-cols-2 gap-4">
                     <Field label="Secret Key" name="stripe_secret_key" placeholder="sk_live_..." note="Leave blank to use mock payments" />
                     <Field label="Publishable Key" name="stripe_publishable_key" placeholder="pk_live_..." />
@@ -84,7 +84,7 @@ export default function AdminSettings() {
             </Section>
 
             {/* Membership Tiers */}
-            <Section icon={Crown} title="Membership Tier Thresholds" color="#D4A054">
+            <Section icon={Crown} title="Membership Tier Thresholds" color="var(--color-accent-amber)">
                 <div className="grid sm:grid-cols-3 gap-4">
                     <Field label="Silver ($)" name="silver_threshold" type="number" note="Spend threshold" />
                     <Field label="Gold ($)" name="gold_threshold" type="number" note="Spend threshold" />
@@ -98,7 +98,7 @@ export default function AdminSettings() {
             </Section>
 
             {/* Loyalty Settings */}
-            <Section icon={Shield} title="Loyalty & Points" color="#5B9A6F">
+            <Section icon={Shield} title="Loyalty & Points" color="var(--color-accent-emerald)">
                 <div className="grid sm:grid-cols-2 gap-4">
                     <Field label="Points per Dollar Spent" name="points_per_dollar" type="number" />
                     <Field label="Points per Scan" name="scan_points" type="number" />
@@ -106,7 +106,7 @@ export default function AdminSettings() {
             </Section>
 
             {/* Event Defaults */}
-            <Section icon={Settings} title="Event Defaults" color="#A78BFA">
+            <Section icon={Settings} title="Event Defaults" color="var(--color-accent-lavender)">
                 <div className="grid sm:grid-cols-2 gap-4">
                     <Field label="Default Capacity" name="default_capacity" type="number" note="Default venue capacity for new events" />
                 </div>

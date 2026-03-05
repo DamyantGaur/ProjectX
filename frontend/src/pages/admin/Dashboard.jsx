@@ -66,7 +66,7 @@ export default function AdminDashboard() {
         if (active && payload?.length) {
             return (
                 <div className="glass-card p-3 text-xs" style={{ minWidth: 120 }}>
-                    <p style={{ color: '#9A9AB0' }}>{label}</p>
+                    <p style={{ color: 'var(--color-text-secondary)' }}>{label}</p>
                     {payload.map((p, i) => (
                         <p key={i} style={{ color: p.color }} className="font-semibold">{p.name}: {typeof p.value === 'number' ? p.value.toLocaleString() : p.value}</p>
                     ))}
@@ -85,8 +85,8 @@ export default function AdminDashboard() {
     return (
         <div>
             <div className="mb-10">
-                <h1 className="text-3xl font-bold tracking-tight" style={{ color: '#EAEAF0' }}>Admin Dashboard</h1>
-                <p className="text-sm mt-2" style={{ color: '#9A9AB0' }}>Real-time overview of your platform</p>
+                <h1 className="text-3xl font-bold tracking-tight" >Admin Dashboard</h1>
+                <p className="text-sm mt-2" style={{ color: 'var(--color-text-secondary)' }}>Real-time overview of your platform</p>
             </div>
 
             {/* Stats */}
@@ -97,8 +97,8 @@ export default function AdminDashboard() {
                             <s.icon size={22} color={s.color} />
                         </div>
                         <div>
-                            <p className="text-2xl font-bold" style={{ color: '#EAEAF0' }}>{s.value}</p>
-                            <p className="text-xs mt-0.5" style={{ color: '#9A9AB0' }}>{s.label}</p>
+                            <p className="text-2xl font-bold" >{s.value}</p>
+                            <p className="text-xs mt-0.5" style={{ color: 'var(--color-text-secondary)' }}>{s.label}</p>
                         </div>
                     </motion.div>
                 ))}
@@ -111,7 +111,7 @@ export default function AdminDashboard() {
                     <div className="flex items-center justify-between mb-5">
                         <div className="flex items-center gap-2">
                             <TrendingUp size={18} color="#5B9A6F" />
-                            <h3 className="font-semibold" style={{ color: '#EAEAF0' }}>Revenue (30d)</h3>
+                            <h3 className="font-semibold" >Revenue (30d)</h3>
                         </div>
                         <span className="text-xs font-semibold px-2 py-1 rounded-lg" style={{ background: 'rgba(91,154,111,0.08)', color: '#5B9A6F', border: '1px solid rgba(91,154,111,0.15)' }}>
                             ${chartRevenueTotal.toFixed(2)} total
@@ -129,7 +129,7 @@ export default function AdminDashboard() {
                         </ResponsiveContainer>
                     ) : (
                         <div className="flex items-center justify-center h-[250px]">
-                            <p className="text-sm" style={{ color: '#5E5E74' }}>No revenue data in the last 30 days</p>
+                            <p className="text-sm" style={{ color: 'var(--color-text-muted)' }}>No revenue data in the last 30 days</p>
                         </div>
                     )}
                 </motion.div>
@@ -139,7 +139,7 @@ export default function AdminDashboard() {
                     <div className="flex items-center justify-between mb-5">
                         <div className="flex items-center gap-2">
                             <Activity size={18} color="#A78BFA" />
-                            <h3 className="font-semibold" style={{ color: '#EAEAF0' }}>Attendance (30d)</h3>
+                            <h3 className="font-semibold" >Attendance (30d)</h3>
                         </div>
                         <span className="text-xs font-semibold px-2 py-1 rounded-lg" style={{ background: 'rgba(167,139,250,0.08)', color: '#A78BFA', border: '1px solid rgba(167,139,250,0.15)' }}>
                             {chartScanTotal} approved
@@ -157,7 +157,7 @@ export default function AdminDashboard() {
                         </ResponsiveContainer>
                     ) : (
                         <div className="flex items-center justify-center h-[250px]">
-                            <p className="text-sm" style={{ color: '#5E5E74' }}>No attendance data in the last 30 days</p>
+                            <p className="text-sm" style={{ color: 'var(--color-text-muted)' }}>No attendance data in the last 30 days</p>
                         </div>
                     )}
                 </motion.div>
@@ -169,10 +169,10 @@ export default function AdminDashboard() {
                 <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }} className="glass-card" style={{ padding: '28px' }}>
                     <div className="flex items-center gap-2 mb-5">
                         <Shield size={18} color="#A78BFA" />
-                        <h3 className="font-semibold" style={{ color: '#EAEAF0' }}>Staff Activity</h3>
+                        <h3 className="font-semibold" >Staff Activity</h3>
                     </div>
                     {staffActivity.length === 0 ? (
-                        <p className="text-sm text-center py-8" style={{ color: '#5E5E74' }}>No staff activity yet</p>
+                        <p className="text-sm text-center py-8" style={{ color: 'var(--color-text-muted)' }}>No staff activity yet</p>
                     ) : (
                         <div className="space-y-3">
                             {staffActivity.slice(0, 5).map((s, i) => (
@@ -182,12 +182,12 @@ export default function AdminDashboard() {
                                             {s.staff_name?.[0]?.toUpperCase() || '?'}
                                         </div>
                                         <div>
-                                            <p className="text-sm font-medium" style={{ color: '#EAEAF0' }}>{s.staff_name}</p>
-                                            <p className="text-xs" style={{ color: '#5E5E74' }}>Last: {s.last_scan ? new Date(s.last_scan).toLocaleDateString() : 'Never'}</p>
+                                            <p className="text-sm font-medium" >{s.staff_name}</p>
+                                            <p className="text-xs" style={{ color: 'var(--color-text-muted)' }}>Last: {s.last_scan ? new Date(s.last_scan).toLocaleDateString() : 'Never'}</p>
                                         </div>
                                     </div>
                                     <div className="text-right">
-                                        <p className="text-sm font-bold" style={{ color: '#EAEAF0' }}>{s.total_scans}</p>
+                                        <p className="text-sm font-bold" >{s.total_scans}</p>
                                         <div className="flex items-center gap-2 text-xs">
                                             <span style={{ color: '#5B9A6F' }}>{s.approved} ✓</span>
                                             <span style={{ color: '#C06070' }}>{s.denied} ✗</span>
@@ -203,7 +203,7 @@ export default function AdminDashboard() {
                 <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6 }} className="glass-card" style={{ padding: '28px' }}>
                     <div className="flex items-center gap-2 mb-5">
                         <AlertTriangle size={18} color="#D4A054" />
-                        <h3 className="font-semibold" style={{ color: '#EAEAF0' }}>Fraud Alerts</h3>
+                        <h3 className="font-semibold" >Fraud Alerts</h3>
                         {fraudAlerts.length > 0 && (
                             <span className="ml-auto text-xs px-2 py-1 rounded-lg" style={{ background: 'rgba(192,96,112,0.12)', color: '#C06070', border: '1px solid rgba(192,96,112,0.2)' }}>
                                 {fraudAlerts.length} alert{fraudAlerts.length > 1 ? 's' : ''}
@@ -222,10 +222,10 @@ export default function AdminDashboard() {
                                     <div key={i} className="p-3 rounded-xl" style={{ background: sc.bg, border: `1px solid ${sc.border}` }}>
                                         <div className="flex items-center justify-between mb-1">
                                             <span className="text-xs font-semibold uppercase" style={{ color: sc.text }}>{a.severity}</span>
-                                            <span className="text-xs" style={{ color: '#9A9AB0' }}>{a.scan_count} scans</span>
+                                            <span className="text-xs" style={{ color: 'var(--color-text-secondary)' }}>{a.scan_count} scans</span>
                                         </div>
-                                        <p className="text-xs font-mono" style={{ color: '#9A9AB0' }}>Token: {a.qr_token}</p>
-                                        <p className="text-xs" style={{ color: '#5E5E74' }}>{a.denied_count} denied · {a.first_scan ? new Date(a.first_scan).toLocaleDateString() : ''}</p>
+                                        <p className="text-xs font-mono" style={{ color: 'var(--color-text-secondary)' }}>Token: {a.qr_token}</p>
+                                        <p className="text-xs" style={{ color: 'var(--color-text-muted)' }}>{a.denied_count} denied · {a.first_scan ? new Date(a.first_scan).toLocaleDateString() : ''}</p>
                                     </div>
                                 );
                             })}
@@ -237,7 +237,7 @@ export default function AdminDashboard() {
             {/* Membership Distribution */}
             {membershipData.length > 0 && (
                 <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.7 }} className="glass-card max-w-md" style={{ padding: '28px' }}>
-                    <h3 className="font-semibold mb-5" style={{ color: '#EAEAF0' }}>Membership Distribution</h3>
+                    <h3 className="font-semibold mb-5" >Membership Distribution</h3>
                     <ResponsiveContainer width="100%" height={200}>
                         <PieChart>
                             <Pie data={membershipData} cx="50%" cy="50%" outerRadius={80} dataKey="value" label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}>

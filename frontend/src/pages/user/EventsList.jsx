@@ -50,14 +50,14 @@ export default function UserEvents() {
     };
 
     if (loading) {
-        return <div className="flex items-center justify-center h-64"><motion.div className="spinner" /></div>;
+        return <div className="flex items-center justify-center h-64"><motion.div className="spinner w-8 h-8 mx-auto" /></div>;
     }
 
     return (
         <div>
             <div className="mb-8">
-                <h1 className="text-2xl font-bold" style={{ color: '#EAEAF0' }}>Events</h1>
-                <p className="text-sm mt-1" style={{ color: '#9A9AB0' }}>Browse and join upcoming events</p>
+                <h1 className="text-2xl font-bold" >Events</h1>
+                <p className="text-sm mt-1" style={{ color: 'var(--color-text-secondary)' }}>Browse and join upcoming events</p>
             </div>
 
             <div className="dashboard-grid">
@@ -67,12 +67,12 @@ export default function UserEvents() {
                     return (
                         <motion.div key={e.id} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }} className="glass-card flex flex-col">
                             <div className="flex justify-between items-start mb-2">
-                                <h3 className="font-semibold flex-1" style={{ color: '#EAEAF0' }}>{e.title}</h3>
+                                <h3 className="font-semibold flex-1" >{e.title}</h3>
                                 <span className={`badge text-xs ${e.price > 0 ? 'badge-vip' : 'badge-success'}`}>{e.price > 0 ? `$${e.price}` : 'Free'}</span>
                             </div>
-                            <p className="text-xs mb-4 flex-1" style={{ color: '#9A9AB0' }}>{e.description}</p>
+                            <p className="text-xs mb-4 flex-1" style={{ color: 'var(--color-text-secondary)' }}>{e.description}</p>
 
-                            <div className="space-y-1.5 text-xs mb-4" style={{ color: '#5E5E74' }}>
+                            <div className="space-y-1.5 text-xs mb-4" style={{ color: 'var(--color-text-muted)' }}>
                                 <div className="flex items-center gap-2"><MapPin size={12} /> {e.venue}</div>
                                 <div className="flex items-center gap-2"><Calendar size={12} /> {new Date(e.date).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</div>
                                 <div className="flex items-center gap-2"><Users size={12} /> {spotsLeft > 0 ? `${spotsLeft} spots left` : 'Full'}</div>
@@ -80,7 +80,7 @@ export default function UserEvents() {
 
                             <div className="flex gap-2">
                                 {e.tags?.map((t, j) => (
-                                    <span key={j} className="text-xs px-2 py-0.5 rounded-full" style={{ background: 'rgba(167,139,250,0.1)', color: '#A78BFA', border: '1px solid rgba(167,139,250,0.2)' }}>{t}</span>
+                                    <span key={j} className="text-xs px-2 py-0.5 rounded-full" className="bg-[var(--color-accent-lavender)]/10 text-[var(--color-accent-lavender)] border border-[var(--color-accent-lavender)]/20 px-2 py-0.5 rounded-full">{t}</span>
                                 ))}
                             </div>
 
@@ -96,7 +96,7 @@ export default function UserEvents() {
                 })}
             </div>
 
-            {events.length === 0 && <p className="text-center py-16 text-sm glass-card" style={{ color: '#5E5E74' }}>No active events right now. Check back later!</p>}
+            {events.length === 0 && <p className="text-center py-16 text-sm glass-card" style={{ color: 'var(--color-text-muted)' }}>No active events right now. Check back later!</p>}
         </div>
     );
 }

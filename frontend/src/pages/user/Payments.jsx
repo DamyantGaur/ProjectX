@@ -57,7 +57,7 @@ export default function UserPayments() {
                 animate={{ rotate: 360 }}
                 transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
                 className="w-10 h-10 rounded-full border-2"
-                style={{ borderColor: 'transparent', borderTopColor: '#C9A96E' }}
+                style={{ borderColor: 'rgba(201, 169, 110, 0.2)', borderTopColor: 'var(--color-accent-gold)' }}
             />
         </div>
     );
@@ -73,8 +73,8 @@ export default function UserPayments() {
                         border: `1px solid ${stripeNotice.type === 'success' ? 'rgba(91,154,111,0.3)' : 'rgba(212,160,84,0.3)'}`,
                     }}>
                     {stripeNotice.type === 'success'
-                        ? <CheckCircle size={20} color="#5B9A6F" />
-                        : <Clock size={20} color="#D4A054" />}
+                        ? <CheckCircle size={20} color="var(--color-accent-emerald)" />
+                        : <Clock size={20} color="var(--color-accent-amber)" />}
                     <p className="text-sm" style={{ color: stripeNotice.type === 'success' ? '#5B9A6F' : '#D4A054' }}>
                         {stripeNotice.msg}
                     </p>
@@ -83,8 +83,8 @@ export default function UserPayments() {
             {/* Header Content */}
             <header className="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
                 <div>
-                    <h1 className="text-3xl font-extrabold tracking-tight text-white mb-2">Payment History</h1>
-                    <p className="text-[#9A9AB0]">Manage your transactions and event passes</p>
+                    <h1 className="text-3xl font-extrabold tracking-tight text-[var(--color-text-primary)] mb-2">Payment History</h1>
+                    <p className="text-[var(--color-text-secondary)]">Manage your transactions and event passes</p>
                 </div>
 
                 {/* Provider Alert */}
@@ -97,7 +97,7 @@ export default function UserPayments() {
                         <p className="font-bold" style={{ color: providerName === 'stripe' ? '#5B9A6F' : '#38BDF8' }}>
                             {providerName === 'stripe' ? 'STRIPE ACTIVE' : 'PAYMENT SIMULATOR ACTIVE'}
                         </p>
-                        <p className="text-[#9A9AB0]">
+                        <p className="text-[var(--color-text-secondary)]">
                             {providerName === 'stripe' ? 'Payments processed via Stripe.' : 'Mock payments — add Stripe keys to go live.'}
                         </p>
                     </div>
@@ -106,45 +106,45 @@ export default function UserPayments() {
 
             {/* Quick Stats */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
-                <div className="glass-card p-6 border-l-4 border-l-[#C9A96E]">
+                <div className="glass-card p-6 border-l-4 border-l-[var(--color-accent-gold)]">
                     <div className="flex items-center justify-between mb-4">
-                        <p className="text-sm font-medium text-[#9A9AB0]">Total Invested</p>
-                        <DollarSign size={20} className="text-[#C9A96E]" />
+                        <p className="text-sm font-medium text-[var(--color-text-secondary)]">Total Invested</p>
+                        <DollarSign size={20} className="text-[var(--color-accent-gold)]" />
                     </div>
-                    <p className="text-2xl font-bold text-white">${totalSpent.toFixed(2)}</p>
-                    <p className="text-xs text-[#5B9A6F] mt-1 flex items-center gap-1">
+                    <p className="text-2xl font-bold text-[var(--color-text-primary)]">${totalSpent.toFixed(2)}</p>
+                    <p className="text-xs text-[var(--color-accent-emerald)] mt-1 flex items-center gap-1">
                         <ArrowUpRight size={12} /> Lifespan value
                     </p>
                 </div>
 
-                <div className="glass-card p-6 border-l-4 border-l-[#A78BFA]">
+                <div className="glass-card p-6 border-l-4 border-l-[var(--color-accent-lavender)]">
                     <div className="flex items-center justify-between mb-4">
-                        <p className="text-sm font-medium text-[#9A9AB0]">Transactions</p>
-                        <CreditCard size={20} className="text-[#A78BFA]" />
+                        <p className="text-sm font-medium text-[var(--color-text-secondary)]">Transactions</p>
+                        <CreditCard size={20} className="text-[var(--color-accent-lavender)]" />
                     </div>
-                    <p className="text-2xl font-bold text-white">{payments.length}</p>
-                    <p className="text-xs text-[#9A9AB0] mt-1">
+                    <p className="text-2xl font-bold text-[var(--color-text-primary)]">{payments.length}</p>
+                    <p className="text-xs text-[var(--color-text-secondary)] mt-1">
                         {payments.filter(p => p.status === 'completed').length} completed successfully
                     </p>
                 </div>
 
-                <div className="glass-card p-6 border-l-4 border-l-[#A78BFA]">
+                <div className="glass-card p-6 border-l-4 border-l-[var(--color-accent-lavender)]">
                     <div className="flex items-center justify-between mb-4">
-                        <p className="text-sm font-medium text-[#9A9AB0]">Savings</p>
-                        <Zap size={20} className="text-[#A78BFA]" />
+                        <p className="text-sm font-medium text-[var(--color-text-secondary)]">Savings</p>
+                        <Zap size={20} className="text-[var(--color-accent-lavender)]" />
                     </div>
-                    <p className="text-2xl font-bold text-white">
+                    <p className="text-2xl font-bold text-[var(--color-text-primary)]">
                         ${payments.reduce((sum, p) => sum + (p.discount || 0), 0).toFixed(2)}
                     </p>
-                    <p className="text-xs text-[#A78BFA] mt-1">Loyalty & Reward discounts</p>
+                    <p className="text-xs text-[var(--color-accent-lavender)] mt-1">Loyalty & Reward discounts</p>
                 </div>
             </div>
 
             {/* Filters and List */}
             <div className="glass-card overflow-hidden">
-                <div className="p-4 border-b border-[rgba(167,139,250,0.1)] flex flex-wrap items-center justify-between gap-4">
+                <div className="p-4 border-b border-white/5 flex flex-wrap items-center justify-between gap-4">
                     <div className="relative flex-1 min-w-[240px]">
-                        <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#5E5E74]" />
+                        <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--color-text-muted)]" />
                         <input
                             type="text"
                             placeholder="Search event or transaction ID..."
@@ -163,7 +163,7 @@ export default function UserPayments() {
                     </div>
                 </div>
 
-                <div className="divide-y divide-[rgba(167,139,250,0.05)]">
+                <div className="divide-y divide-white/5">
                     {filteredPayments.map((p, i) => {
                         const cfg = statusConfig[p.status] || statusConfig.pending;
                         return (
@@ -172,18 +172,18 @@ export default function UserPayments() {
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 transition={{ delay: i * 0.03 }}
-                                className="p-4 md:p-6 hover:bg-[rgba(167,139,250,0.03)] transition-colors flex flex-col sm:flex-row sm:items-center gap-4"
+                                className="p-4 md:p-6 hover:bg-white/[0.02] transition-colors flex flex-col sm:flex-row sm:items-center gap-4"
                             >
                                 <div className="flex items-center gap-4 flex-1">
                                     <div className="w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0" style={{ background: `${cfg.color}15`, border: `1px solid ${cfg.color}30` }}>
                                         <cfg.icon size={22} color={cfg.color} />
                                     </div>
                                     <div className="min-w-0">
-                                        <h3 className="text-sm font-bold text-white truncate">{p.event_title || 'Private Event Access'}</h3>
+                                        <h3 className="text-sm font-bold text-[var(--color-text-primary)] truncate">{p.event_title || 'Private Event Access'}</h3>
                                         <div className="flex items-center gap-2 mt-1">
-                                            <p className="text-xs text-[#5E5E74]">#{p.id.slice(-8).toUpperCase()}</p>
-                                            <span className="w-1 h-1 rounded-full bg-[#334155]" />
-                                            <p className="text-xs text-[#5E5E74]">
+                                            <p className="text-xs text-[var(--color-text-muted)]">#{p.id.slice(-8).toUpperCase()}</p>
+                                            <span className="w-1 h-1 rounded-full bg-white/10" />
+                                            <p className="text-xs text-[var(--color-text-muted)]">
                                                 {new Date(p.created_at).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' })}
                                             </p>
                                         </div>
@@ -192,8 +192,8 @@ export default function UserPayments() {
 
                                 <div className="flex items-center justify-between sm:justify-end gap-6 sm:w-auto">
                                     <div className="text-right">
-                                        <p className="text-lg font-bold text-white">${p.amount.toFixed(2)}</p>
-                                        {p.discount > 0 && <p className="text-[10px] font-bold text-[#5B9A6F]">-{p.discount.toFixed(2)} OFF</p>}
+                                        <p className="text-lg font-bold text-[var(--color-text-primary)]">${p.amount.toFixed(2)}</p>
+                                        {p.discount > 0 && <p className="text-[10px] font-bold text-[var(--color-accent-emerald)]">-{p.discount.toFixed(2)} OFF</p>}
                                     </div>
                                     <div className="flex flex-col items-end gap-1">
                                         <span className={`px-2 py-1 rounded-md text-[10px] font-black uppercase tracking-widest ${cfg.badge}`}>
@@ -207,16 +207,16 @@ export default function UserPayments() {
 
                     {filteredPayments.length === 0 && (
                         <div className="py-20 text-center">
-                            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[rgba(167,139,250,0.05)] mb-4">
-                                <Info size={32} className="text-[#5E5E74]" />
+                            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-white/5 mb-4">
+                                <Info size={32} className="text-[var(--color-text-muted)]" />
                             </div>
-                            <p className="text-[#9A9AB0] text-sm">No transactions found matching your criteria.</p>
+                            <p className="text-[var(--color-text-secondary)] text-sm">No transactions found matching your criteria.</p>
                         </div>
                     )}
                 </div>
             </div>
 
-            <p className="mt-6 text-center text-xs text-[#475569]">
+            <p className="mt-6 text-center text-xs text-[var(--color-text-muted)]">
                 All transactions are encrypted and processed via Project X Secure Layer.
             </p>
         </div>
